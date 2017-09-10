@@ -39,6 +39,11 @@
 #error Include CommonDef.h not TypeDef.h
 #endif
 #include <vector>
+
+//ho macro setting
+#define HO_EXPORT_ENCODE_DATA		1	// 0:disable, 1: enable export encode data
+//end ho
+
 //! \ingroup TLibCommon
 //! \{
 /////////////////////////////////////////////////////////////////////////////////////////

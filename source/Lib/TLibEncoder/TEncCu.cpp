@@ -45,6 +45,16 @@
 #include <algorithm>
 using namespace std;
 
+//ho encode data
+#include "csvfile.h"				// csvfile.h in source\Lib\TLibEncoder
+#if HO_EXPORT_ENCODE_DATA
+extern Bool g_bExportEncodeData;
+#include <iostream>
+#include <unistd.h>
+#include <sstream>
+#define GetCurrentDir getcwd
+#endif
+//end ho
 
 //! \ingroup TLibEncoder
 //! \{
@@ -1600,6 +1610,117 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
     finishCU(pcCU,uiAbsPartIdx);
     return;
   }
+
+  //ho encode data
+#if HO_EXPORT_ENCODE_DATA
+  if(g_bExportEncodeData)
+  {
+	  UInt y, x, j;
+	  Int iDISFlag;	// DIS Flag
+	  Int iDISType;	// DIS Type
+	  Int iDir[4];	// Intra Prediction Direction including DMM1 and DMM4
+	  Int iPartNum;	// Partition Number
+
+	  // init
+	  iDISFlag = iDISType = iPartNum = -1;
+	  for(j=0; j<4; j++)
+		  iDir[j] = -1;
+	  const TComPicYuv *const pPic  = pcSlice->getPic()->getPicYuvOrg();	// Picture pointer
+	  const Pel        * pOrg       = pPic->getAddr(COMPONENT_Y);			// Y pel frame pointer
+	  const Int          iStride    = pPic->getStride(COMPONENT_Y);			// Y stride
+	  const UInt         uiCuSize	= (maxCUWidth >> uiDepth);				// Y CU Size
+	  const Pel        * pOrgPel    = &pOrg[uiTPelY * iStride + uiLPelX];	// Y pel CU pointer
+
+	  // get CU mode and intra prediction direction
+	  iDISFlag = (Int) pcCU->getDISFlag(uiAbsPartIdx);				
+	  if(iDISFlag)
+		  iDISType = (Int) pcCU->getDISType(uiAbsPartIdx);
+	  else // iDISFlag == 0
+	  {
+		  PartSize mode = pcCU->getPartitionSize(uiAbsPartIdx);
+		  iPartNum = (mode == SIZE_NxN) ? 4 : 1;
+		  UInt partOffset = (pcCU->getPic()->getNumPartitionsInCtu() >> (pcCU->getDepth(uiAbsPartIdx) << 1)) >> 2;
+		  for(j=0; j<iPartNum; j++)
+			  iDir[j] = pcCU->getIntraDir(CHANNEL_TYPE_LUMA, uiAbsPartIdx + partOffset * j);
+	  }
+
+	  // write encode data ////////////////////////////////////////////////////////////////////////////////////
+    // ------------------------------------------------------------------------------------------------------
+    // start ------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------
+	  try {
+      // if DIS not used:
+      if (iDISFlag == 0) {
+        char szFileName[FILENAME_MAX];
+//        sprintf(szFileName, "/Users/pharrell_wang/htm_debug_files/data_exported_for_homo_split/mixed_data_%d.csv", uiDepth);
+        // get current working directory and append the name.
+        GetCurrentDir(szFileName, sizeof(szFileName));
+        char partOfName[FILENAME_MAX];
+        sprintf(partOfName, "/data_exported_for_homo_split/mix_data_%d.csv", uiDepth);
+        strcat(szFileName,partOfName);
+        // get current working directory and append the name.
+        csvfile csv(szFileName);
+        // write CU original pixels
+        for (y = 0; y < uiCuSize; y++) {
+          for (x = 0; x < uiCuSize; x++)
+            csv << pOrgPel[x];
+          pOrgPel += iStride;
+        }
+        // write CU mode and intra prediction direction
+//        csv << iDISFlag;
+//        csv << iDISType;
+        if (iPartNum == 1) {
+          csv << 0; // HOMO
+        } else if (iPartNum == 4){
+          csv << 1; // SPLIT
+        } else {
+          std::cout << "error occurred, please stop the execution and inspect the codes...." << std::endl;
+        }
+//        csv << iPartNum;
+//        for (j = 0; j < 4; j++)
+//          csv << iDir[j];
+        csv << endrow;
+      }
+	  }
+	  catch (const std::exception &ex) {
+		  std::cout << "Exception was thrown: " << ex.what() << std::endl;
+	  }
+    // ------------------------------------------------------------------------------------------------------
+    // end ------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------
+//    if (iPartNum == 1) {
+//      try {
+//        char szFileName[1024];
+////             isprintf(szFileName, "/Users/Pharrell_WANG/XcodeProj/for_HTM_debugging/data_exported/mixed_data_%d.csv", uiDepth);
+//        sprintf(szFileName, "/Users/pharrell_wang/data_collecting/poznan_hall_1920x1088/data_exported/mixed_data_%d.csv", uiDepth);
+//        csvfile csv(szFileName);
+//        // write CU original pixels
+//        for (y = 0; y < uiCuSize; y++) {
+//          for (x = 0; x < uiCuSize; x++)
+//            csv << pOrgPel[x];
+//          pOrgPel += iStride;
+//        }
+//        if (iDir[0] < 35) {
+//          csv << iDir[0];
+//        } else if (iDir[0] == 37) {
+//          csv << 35;
+//          assert (typeid(iDir[0]).name() == typeid(37).name());
+//        } else if (iDir[0] == 38) {
+//          csv << 36;
+//          assert (typeid(iDir[0]).name() == typeid(37).name());
+//        } else {
+//          std::cout << "iDir[0]: " << iDir[0] << std::endl;
+//        }
+//
+//        csv << endrow;
+//      }
+//      catch (const std::exception &ex) {
+//        std::cout << "Exception was thrown: " << ex.what() << std::endl;
+//      }
+//    }
+  }
+#endif
+  //end ho
 
 #if NH_3D_DIS
   m_pcEntropyCoder->encodeDIS( pcCU, uiAbsPartIdx );

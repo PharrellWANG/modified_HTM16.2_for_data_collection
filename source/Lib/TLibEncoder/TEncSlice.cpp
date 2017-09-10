@@ -39,6 +39,12 @@
 #include "TEncSlice.h"
 #include <math.h>
 
+//ho encode data
+#if HO_EXPORT_ENCODE_DATA
+Bool g_bExportEncodeData = false;
+#endif
+//end ho
+
 //! \ingroup TLibEncoder
 //! \{
 
@@ -1007,9 +1013,21 @@ Void TEncSlice::compressSlice( TComPic* pcPic, const Bool bCompressEntireSlice, 
     m_pppcRDSbacCoder[0][CI_CURR_BEST]->resetBits();
     pRDSbacCoder->setBinsCoded( 0 );
 
+	//ho encode data
+#if HO_EXPORT_ENCODE_DATA
+	if(pCtu->getSlice()->getIsDepth()) // only depth data
+		g_bExportEncodeData = true;
+#endif
+	//end ho
+
     // encode CTU and calculate the true bit counters.
     m_pcCuEncoder->encodeCtu( pCtu );
 
+	//ho encode data
+#if HO_EXPORT_ENCODE_DATA
+	g_bExportEncodeData = false;
+#endif
+	//end ho
 
     pRDSbacCoder->setBinCountingEnableFlag( false );
 
