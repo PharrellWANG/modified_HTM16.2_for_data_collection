@@ -1659,19 +1659,13 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
     // ------------------------------------------------------------------------------------------------------
     if (iPartNum == 1) {
       try {
-        char szFileName[1024];
-        // get cwd pharrell begin
-//              char buffer[SIZE];
-//              char *answer = getcwd(buffer, sizeof(buffer));
-//              std::string s_cwd;
-//              if (answer) {
-//                  s_cwd = answer;
-//              }
-        // get cwd pharrell end
-        sprintf(szFileName, "/Users/Pharrell_WANG/XcodeProj/for_HTM_debugging/data_exported/mixed_data_%d.csv", uiDepth);
-//              sprintf(szFileName, "/Users/zwapimachk/data_collecting/undo_dancer_1920x1088/data_exported/mixed_data_%d.csv", uiDepth);
-//              sprintf(szFileName, "/data_exported/mixed_data_%d.csv", uiDepth);
-//              std::string fileName = s_cwd + szFileName;
+        char szFileName[FILENAME_MAX];
+        // get current working directory and append the name.
+        GetCurrentDir(szFileName, sizeof(szFileName));
+        char partOfName[FILENAME_MAX];
+        sprintf(partOfName, "/data_exporting/mix_data_%d.csv", uiDepth);
+        strcat(szFileName,partOfName);
+        // get current working directory and append the name.
         csvfile csv(szFileName);
         // write CU original pixels
         for (y = 0; y < uiCuSize; y++) {
@@ -1709,20 +1703,13 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
         UInt xEndPos;
 
         data_collecting_depth = uiDepth + 1;
-        char szFileName[1024];
-        // get cwd pharrell begin
-//              char buffer[SIZE];
-//              char *answer = getcwd(buffer, sizeof(buffer));
-//              std::string s_cwd;
-//              if (answer) {
-//                  s_cwd = answer;
-//              }
-        // get cwd pharrell end
-        sprintf(szFileName, "/Users/Pharrell_WANG/XcodeProj/for_HTM_debugging/data_exported/mixed_data_%d.csv", uiDepth);
-//              sprintf(szFileName, "/Users/zwapimachk/data_collecting/undo_dancer_1920x1088/data_exported/mixed_data_%d.csv", data_collecting_depth);
-//              sprintf(szFileName, "/data_exported/mixed_data_%d.csv", data_collecting_depth);
-//              std::string fileName = s_cwd + szFileName;
-//              csvfile csv(fileName);
+        char szFileName[FILENAME_MAX];
+        // get current working directory and append the name.
+        GetCurrentDir(szFileName, sizeof(szFileName));
+        char partOfName[FILENAME_MAX];
+        sprintf(partOfName, "/data_exporting/mix_data_%d.csv", uiDepth);
+        strcat(szFileName,partOfName);
+        // get current working directory and append the name.
         csvfile csv(szFileName);
         // write CU original pixels
 
