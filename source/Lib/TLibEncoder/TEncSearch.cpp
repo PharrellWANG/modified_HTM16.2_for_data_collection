@@ -7930,6 +7930,11 @@ Void TEncSearch::xSearchDmm1Wedge( TComDataCU* pcCU, UInt uiAbsPtIdx, Pel* piRef
   WedgeList*     pacWedgeList     = getWedgeListScaled    ( uiWidth );
   WedgeNodeList* pacWedgeNodeList = getWedgeNodeListScaled( uiWidth );
 
+//  std::cout << "check out the size..." << std::endl;
+//  std::cout << pacWedgeList->size() << std::endl;
+//  std::cout << pacWedgeNodeList->size() << std::endl;
+//  std::cout << "" << std::endl;
+
   // coarse wedge search
 #if NH_3D_VSO
   Dist       uiBestDist   = RDO_DIST_MAX;

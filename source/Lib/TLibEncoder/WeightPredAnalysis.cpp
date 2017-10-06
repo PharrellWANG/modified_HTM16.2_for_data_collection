@@ -257,6 +257,11 @@ Void WeightPredAnalysis::xCalcACDCParamSlice(TComSlice *const slice)
     // calculate DC/AC value for channel
 
     const Int stride = pPic->getStride(compID);
+    if (!compID) {
+      std::cout << "-----" << std::endl;
+      std::cout << stride << std::endl;
+      std::cout << "" << std::endl;
+    }
     const Int width  = pPic->getWidth(compID);
     const Int height = pPic->getHeight(compID);
 

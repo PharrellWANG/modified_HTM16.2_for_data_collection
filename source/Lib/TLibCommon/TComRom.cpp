@@ -795,9 +795,12 @@ std::vector< std::vector<TComWedgeNode> > g_dmmWedgeNodeLists;
 Void initWedgeLists( Bool initNodeList )
 {
   if( !g_dmmWedgeLists.empty() ) return;
-  for( UInt ui = g_aucConvertToBit[DMM_MIN_SIZE]; ui < (g_aucConvertToBit[DMM_MAX_SIZE]); ui++ )
+  for( UInt ui = g_aucConvertToBit[DMM_MIN_SIZE]; ui < (g_aucConvertToBit[DMM_MAX_SIZE]); ui++ ) // ui: 0, 1, 2, map to: 4, 8, 16 // why 32 is not here? pha.zx
   {
+//    std::cout << "" << std::endl;
+//    std::cout << ui << std::endl;
     UInt uiWedgeBlockSize = ((UInt)DMM_MIN_SIZE)<<ui;
+//    std::cout << uiWedgeBlockSize << std::endl;
     std::vector<TComWedgelet> acWedgeList;
     std::vector<TComWedgeRef> acWedgeRefList;
     createWedgeList( uiWedgeBlockSize, uiWedgeBlockSize, acWedgeList, acWedgeRefList, g_dmmWedgeResolution[ui] );
@@ -806,6 +809,7 @@ Void initWedgeLists( Bool initNodeList )
     {
       // create WedgeNodeList
       std::vector<TComWedgeNode> acWedgeNodeList;
+//      std::cout << acWedgeList.size() << std::endl;
       for( UInt uiPos = 0; uiPos < acWedgeList.size(); uiPos++ )
       {
         if( acWedgeList[uiPos].getIsCoarse() )
@@ -875,6 +879,7 @@ Void createWedgeList( UInt uiWidth, UInt uiHeight, std::vector<TComWedgelet> &ra
   for( UInt uiOri = 0; uiOri < 6; uiOri++ )
   {
     posEnd = (Int) racWedgeList.size();
+//    std::cout << posEnd << std::endl;
     if (uiOri == 0 || uiOri == 4)
     {
     for( Int iK = 0; iK < uiBlockSize; iK += (uiWidth>=16 ?2:1))

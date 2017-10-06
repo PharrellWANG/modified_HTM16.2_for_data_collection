@@ -1629,8 +1629,11 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
 
 	  const Pel        * pOrg       = pPic->getAddr(COMPONENT_Y);			// Y pel frame pointer
 	  const Int          iStride    = pPic->getStride(COMPONENT_Y);			// Y stride
+    std::cout << "iStride: " << iStride << std::endl;
 	  const UInt         uiCuSize	= (maxCUWidth >> uiDepth);				// Y CU Size
 	  const Pel        * pOrgPel    = &pOrg[uiTPelY * iStride + uiLPelX];	// Y pel CU pointer
+    std::cout << "uiLPelX: " << uiLPelX << std::endl;
+    std::cout << "uiTPelY: " << uiTPelY << std::endl;
 
     //if pha.zx
 //    const Pel*  piOrgU       = pPic->getAddr(COMPONENT_Cb); // U pel frame pointer
