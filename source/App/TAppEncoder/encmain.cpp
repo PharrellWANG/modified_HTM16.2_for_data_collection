@@ -38,6 +38,7 @@
 #include <time.h>
 #include <iostream>
 #include "TAppEncTop.h"
+#include "TimeCost.h"
 #include "TAppCommon/program_options_lite.h"
 
 //! \ingroup TAppEncoder
@@ -51,6 +52,12 @@
 
 int main(int argc, char* argv[])
 {
+  std::cout<<Dmm1TimeCost::getDMM1TimeCost()<<std::endl;
+
+  Dmm1TimeCost::increaseDMM1TimeCost(7);
+
+  std::cout<<Dmm1TimeCost::getDMM1TimeCost()<<std::endl;
+
   TAppEncTop  cTAppEncTop;
 
   // print information
@@ -67,6 +74,8 @@ int main(int argc, char* argv[])
 
   // create application encoder class
   cTAppEncTop.create();
+
+  std::cout<<Dmm1TimeCost::getDMM1TimeCost()<<std::endl;
 
   // parse configuration
   try
@@ -104,6 +113,7 @@ int main(int argc, char* argv[])
   // ending time
   dResult = (Double)(clock()-lBefore) / CLOCKS_PER_SEC;
   printf("\n Total Time: %12.3f sec.\n", dResult);
+
 
   // destroy application encoder class
   cTAppEncTop.destroy();

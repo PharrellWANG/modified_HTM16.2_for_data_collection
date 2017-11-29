@@ -34,7 +34,7 @@
 /** \file     TAppEncCfg.cpp
     \brief    Handle encoder configuration parameters
 */
-
+#include "TimeCost.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <cassert>
@@ -199,6 +199,7 @@ TAppEncCfg::~TAppEncCfg()
 
 Void TAppEncCfg::create()
 {
+  Dmm1TimeCost::increaseDMM1TimeCost(8);
 }
 
 Void TAppEncCfg::destroy()

@@ -34,7 +34,7 @@
 /** \file     TAppEncTop.cpp
     \brief    Encoder application class
 */
-
+#include "TimeCost.h"
 #include <list>
 #include <fstream>
 #include <stdlib.h>
@@ -942,6 +942,7 @@ Void TAppEncTop::xInitLib(Bool isFieldCoding)
 Void TAppEncTop::encode()
 {
   fstream bitstreamFile(m_bitstreamFileName.c_str(), fstream::binary | fstream::out);
+  Dmm1TimeCost::increaseDMM1TimeCost(9);
   if (!bitstreamFile)
   {
     fprintf(stderr, "\nfailed to open bitstream file `%s' for writing\n", m_bitstreamFileName.c_str());

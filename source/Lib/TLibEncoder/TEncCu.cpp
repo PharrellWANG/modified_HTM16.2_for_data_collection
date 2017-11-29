@@ -1617,37 +1617,23 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
   {
 	  UInt y, x, j;
 	  Int iDISFlag;	// DIS Flag
-	  Int iDISType;	// DIS Type
 	  Int iDir[4];	// Intra Prediction Direction including DMM1 and DMM4
 	  Int iPartNum;	// Partition Number
 
 	  // init
-	  iDISFlag = iDISType = iPartNum = -1;
+    iPartNum = -1;
 	  for(j=0; j<4; j++)
 		  iDir[j] = -1;
 	  const TComPicYuv *const pPic  = pcSlice->getPic()->getPicYuvOrg();	// Picture pointer
 
-	  const Pel        * pOrg       = pPic->getAddr(COMPONENT_Y);			// Y pel frame pointer
-	  const Int          iStride    = pPic->getStride(COMPONENT_Y);			// Y stride
-    std::cout << "iStride: " << iStride << std::endl;
-	  const UInt         uiCuSize	= (maxCUWidth >> uiDepth);				// Y CU Size
+	  const Pel        * pOrg       = pPic->getAddr(COMPONENT_Y);			    // Y pel frame pointer
+	  const Int          iStride    = pPic->getStride(COMPONENT_Y);			  // Y stride
+	  const UInt         uiCuSize	  = (maxCUWidth >> uiDepth);				    // Y CU Size
 	  const Pel        * pOrgPel    = &pOrg[uiTPelY * iStride + uiLPelX];	// Y pel CU pointer
-    std::cout << "uiLPelX: " << uiLPelX << std::endl;
-    std::cout << "uiTPelY: " << uiTPelY << std::endl;
-
-    //if pha.zx
-//    const Pel*  piOrgU       = pPic->getAddr(COMPONENT_Cb); // U pel frame pointer
-//    const Int   uiOrgStrideC = pPic->getStride(COMPONENT_Cb); // U stride
-//
-//    const Pel*  piOrgV       = pPic->getAddr(COMPONENT_Cr); // v pel frame pointer
-    //endif
-
 
 	  // get CU mode and intra prediction direction
 	  iDISFlag = (Int) pcCU->getDISFlag(uiAbsPartIdx);
-	  if(iDISFlag)
-		  iDISType = (Int) pcCU->getDISType(uiAbsPartIdx);
-	  else // iDISFlag == 0
+	  if(!iDISFlag) //iDISFlag == 0
 	  {
 		  PartSize mode = pcCU->getPartitionSize(uiAbsPartIdx);
 		  iPartNum = (mode == SIZE_NxN) ? 4 : 1;
@@ -1655,11 +1641,7 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
 		  for(j=0; j<iPartNum; j++)
 			  iDir[j] = pcCU->getIntraDir(CHANNEL_TYPE_LUMA, uiAbsPartIdx + partOffset * j);
 	  }
-
 	  // write encode data ////////////////////////////////////////////////////////////////////////////////////
-    // ------------------------------------------------------------------------------------------------------
-    // start ------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------
     if (iPartNum == 1) {
       try {
         char szFileName[FILENAME_MAX];
@@ -1671,7 +1653,6 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
         char partOfName[FILENAME_MAX];
         sprintf(partOfName, "/data_exporting/mix_data_%d.csv", uiDepth);
         strcat(szFileName,partOfName);
-        // get current working directory and append the name.
 #endif
         csvfile csv(szFileName);
         // write CU original pixels
@@ -1680,11 +1661,6 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
             csv << pOrgPel[x];
           pOrgPel += iStride;
         }
-        // write CU mode and intra prediction direction
-//              csv << iDISFlag;
-//              csv << iDISType;
-//              csv << iPartNum;
-//              for (j = 0; j < 4; j++)
         if (iDir[0]<35){
           csv << iDir[0];
         } else if (iDir[0] == 37){
@@ -1704,10 +1680,10 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
       try {
         UInt data_collecting_depth;
 
-        UInt yStartPos;
-        UInt yEndPos;
-        UInt xStartPos;
-        UInt xEndPos;
+        UInt yStartPos = 0;
+        UInt yEndPos = 0;
+        UInt xStartPos = 0;
+        UInt xEndPos = 0;
 
         data_collecting_depth = uiDepth + 1;
         char szFileName[FILENAME_MAX];
@@ -1726,39 +1702,26 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
 
         for(j=0; j<iPartNum; j++) {
           const UInt size_pha = maxCUWidth >> data_collecting_depth;
-
           if (j == 0) {
-
             yStartPos = 0;
             yEndPos = size_pha;
-
             xStartPos = 0;
             xEndPos = size_pha;
-
           } else if (j == 1) {
-
             yStartPos = 0;
             yEndPos = size_pha;
-
             xStartPos = size_pha;
             xEndPos = size_pha*2;
-
           } else if (j == 2) {
-
             yStartPos = size_pha;
             yEndPos = size_pha * 2;
-
             xStartPos = 0;
-            xStartPos = size_pha;
-
+            xEndPos = size_pha;
           } else if (j == 3) {
-
             yStartPos = size_pha;
             yEndPos = size_pha * 2;
-
             xStartPos = size_pha;
             xEndPos = size_pha * 2;
-
           }
 
           for (y = yStartPos; y < yEndPos; y++) {
@@ -1784,7 +1747,6 @@ Void TEncCu::xEncodeCU( TComDataCU* pcCU, UInt uiAbsPartIdx, UInt uiDepth )
         std::cout << "Exception was thrown: " << ex.what() << std::endl;
       }
     }
-    // end ------------------------------------------------------------------------------------------------------
   }
 #endif
   //end ho

@@ -27,9 +27,6 @@
 		784870741B0B62D10098FD5A /* decmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FA71B0B62C70098FD5A /* decmain.cpp */; };
 		784870751B0B62D10098FD5A /* TAppDecCfg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FA81B0B62C70098FD5A /* TAppDecCfg.cpp */; };
 		784870761B0B62D10098FD5A /* TAppDecTop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FAA1B0B62C70098FD5A /* TAppDecTop.cpp */; };
-		784870771B0B62D80098FD5A /* encmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FAD1B0B62C70098FD5A /* encmain.cpp */; };
-		784870781B0B62D80098FD5A /* TAppEncCfg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FAE1B0B62C70098FD5A /* TAppEncCfg.cpp */; };
-		784870791B0B62D80098FD5A /* TAppEncTop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FB01B0B62C70098FD5A /* TAppEncTop.cpp */; };
 		7848707A1B0B62E10098FD5A /* extrmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FB31B0B62C70098FD5A /* extrmain.cpp */; };
 		7848707B1B0B62E10098FD5A /* TAppExtrCfg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FB41B0B62C70098FD5A /* TAppExtrCfg.cpp */; };
 		7848707C1B0B62E10098FD5A /* TAppExtrTop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78486FB61B0B62C70098FD5A /* TAppExtrTop.cpp */; };
@@ -125,6 +122,10 @@
 		78C5943C15872356004401C5 /* libTLibVideoIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6767964B11AD629200421804 /* libTLibVideoIO.a */; };
 		78C5943D1587235B004401C5 /* libTAppCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C593B415872152004401C5 /* libTAppCommon.a */; };
 		78C5943E1587235E004401C5 /* libTLibExtractor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7885897D15664E3D00982C12 /* libTLibExtractor.a */; };
+		BE08F33BA8AE1305258E58A2 /* TAppEncTop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE08F66F8513EE046A9FA988 /* TAppEncTop.cpp */; };
+		BE08F523AAA09F12BFABD7A3 /* TAppEncCfg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE08F47BB36F64AD8EA9AEAF /* TAppEncCfg.cpp */; };
+		BE08FC111B85EF4F1E828523 /* encmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE08F7D243AC14821DD08371 /* encmain.cpp */; };
+		BE08FCCA8F6496370A9A14D1 /* TimeCost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE08F4F67FF0A38AED0C81BE /* TimeCost.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,11 +297,6 @@
 		78486FA91B0B62C70098FD5A /* TAppDecCfg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAppDecCfg.h; sourceTree = "<group>"; };
 		78486FAA1B0B62C70098FD5A /* TAppDecTop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TAppDecTop.cpp; sourceTree = "<group>"; };
 		78486FAB1B0B62C70098FD5A /* TAppDecTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAppDecTop.h; sourceTree = "<group>"; };
-		78486FAD1B0B62C70098FD5A /* encmain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = encmain.cpp; sourceTree = "<group>"; };
-		78486FAE1B0B62C70098FD5A /* TAppEncCfg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TAppEncCfg.cpp; sourceTree = "<group>"; };
-		78486FAF1B0B62C70098FD5A /* TAppEncCfg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAppEncCfg.h; sourceTree = "<group>"; };
-		78486FB01B0B62C70098FD5A /* TAppEncTop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TAppEncTop.cpp; sourceTree = "<group>"; };
-		78486FB11B0B62C70098FD5A /* TAppEncTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAppEncTop.h; sourceTree = "<group>"; };
 		78486FB31B0B62C70098FD5A /* extrmain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = extrmain.cpp; sourceTree = "<group>"; };
 		78486FB41B0B62C70098FD5A /* TAppExtrCfg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TAppExtrCfg.cpp; sourceTree = "<group>"; };
 		78486FB51B0B62C70098FD5A /* TAppExtrCfg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAppExtrCfg.h; sourceTree = "<group>"; };
@@ -487,6 +483,13 @@
 		7894E36714890D9A009259F4 /* libTLibRenderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTLibRenderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7894E38A14890DD2009259F4 /* TAppRenderer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TAppRenderer; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C593B415872152004401C5 /* libTAppCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTAppCommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE08F44F3D9FDBEA3EA5DF4F /* TAppEncCfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAppEncCfg.h; sourceTree = "<group>"; };
+		BE08F47BB36F64AD8EA9AEAF /* TAppEncCfg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TAppEncCfg.cpp; sourceTree = "<group>"; };
+		BE08F4F67FF0A38AED0C81BE /* TimeCost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeCost.cpp; sourceTree = "<group>"; };
+		BE08F599059EE01099BE4F68 /* TimeCost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeCost.h; sourceTree = "<group>"; };
+		BE08F66F8513EE046A9FA988 /* TAppEncTop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TAppEncTop.cpp; sourceTree = "<group>"; };
+		BE08F7BCC55438AFF09CB786 /* TAppEncTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAppEncTop.h; sourceTree = "<group>"; };
+		BE08F7D243AC14821DD08371 /* encmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encmain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -630,7 +633,6 @@
 			isa = PBXGroup;
 			children = (
 				78486FA61B0B62C70098FD5A /* TAppDecoder */,
-				78486FAC1B0B62C70098FD5A /* TAppEncoder */,
 				78486FB21B0B62C70098FD5A /* TAppExtractor */,
 				78486FB81B0B62C70098FD5A /* TAppRenderer */,
 				78486FBE1B0B62C70098FD5A /* utils */,
@@ -647,20 +649,9 @@
 				78486FA91B0B62C70098FD5A /* TAppDecCfg.h */,
 				78486FAA1B0B62C70098FD5A /* TAppDecTop.cpp */,
 				78486FAB1B0B62C70098FD5A /* TAppDecTop.h */,
+				BE08FA3644F7EA0753D1E38D /* TAppEncoder */,
 			);
 			path = TAppDecoder;
-			sourceTree = "<group>";
-		};
-		78486FAC1B0B62C70098FD5A /* TAppEncoder */ = {
-			isa = PBXGroup;
-			children = (
-				78486FAD1B0B62C70098FD5A /* encmain.cpp */,
-				78486FAE1B0B62C70098FD5A /* TAppEncCfg.cpp */,
-				78486FAF1B0B62C70098FD5A /* TAppEncCfg.h */,
-				78486FB01B0B62C70098FD5A /* TAppEncTop.cpp */,
-				78486FB11B0B62C70098FD5A /* TAppEncTop.h */,
-			);
-			path = TAppEncoder;
 			sourceTree = "<group>";
 		};
 		78486FB21B0B62C70098FD5A /* TAppExtractor */ = {
@@ -944,6 +935,21 @@
 			);
 			path = TLibVideoIO;
 			sourceTree = "<group>";
+		};
+		BE08FA3644F7EA0753D1E38D /* TAppEncoder */ = {
+			isa = PBXGroup;
+			children = (
+				BE08F7D243AC14821DD08371 /* encmain.cpp */,
+				BE08F47BB36F64AD8EA9AEAF /* TAppEncCfg.cpp */,
+				BE08F44F3D9FDBEA3EA5DF4F /* TAppEncCfg.h */,
+				BE08F66F8513EE046A9FA988 /* TAppEncTop.cpp */,
+				BE08F7BCC55438AFF09CB786 /* TAppEncTop.h */,
+				BE08F4F67FF0A38AED0C81BE /* TimeCost.cpp */,
+				BE08F599059EE01099BE4F68 /* TimeCost.h */,
+			);
+			name = TAppEncoder;
+			path = source/App/TAppEncoder;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -1333,9 +1339,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				784870781B0B62D80098FD5A /* TAppEncCfg.cpp in Sources */,
-				784870791B0B62D80098FD5A /* TAppEncTop.cpp in Sources */,
-				784870771B0B62D80098FD5A /* encmain.cpp in Sources */,
+				BE08FC111B85EF4F1E828523 /* encmain.cpp in Sources */,
+				BE08F523AAA09F12BFABD7A3 /* TAppEncCfg.cpp in Sources */,
+				BE08F33BA8AE1305258E58A2 /* TAppEncTop.cpp in Sources */,
+				BE08FCCA8F6496370A9A14D1 /* TimeCost.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
